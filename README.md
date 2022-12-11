@@ -1,6 +1,6 @@
 # 🚀 When Lambo SDK
 
-Welcome to the When Lambo SDK! This SDK provides a simple interface for interacting with the Persona Analysis API. It allows you to easily check if a given wallet address matches a given persona, or to filter a list of wallet addresses based on which addresses match a given persona.
+Welcome to the When Lambo SDK! This TypeScript SDK provides a simple interface for interacting with the Persona Analysis API. It allows you to easily check if a given wallet address matches a given persona, or to filter a list of wallet addresses based on which addresses match a given persona.
 
 ## 📑 Table of Contents
 
