@@ -1,7 +1,7 @@
 import { Base } from '../base';
 import { PersonaAnalysisStatus, HttpMethod, WalletsForPersona, ResponseError } from '../types';
 
-export class PersonaAnalysis extends Base {
+export default class PersonaAnalysis extends Base {
   // Returns information if provided wallet address meet rules for given persona
   isPersonaMatched(
     walletAddress: string,
