@@ -29,6 +29,8 @@ export abstract class Base {
       !!walletAddress ? isWalletAddressValid(walletAddress) : areWalletAddressesValid(body),
     );
 
+    console.log('will be removed - test auto tag generation');
+
     const areValid = await validateWalletAddresses;
     return areValid
       ? fetch(url, config)
