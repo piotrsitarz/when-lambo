@@ -4,11 +4,11 @@ Welcome to the When Lambo SDK! This SDK provides a simple interface for interact
 
 ## 📑 Table of Contents
 
-1. [Installation](#installation)
-2. [Authorization](#authorization)
-3. [SDK Methods](#sdk-methods)
-4. [Examples of Usage](#examples-of-usage)
-5. [Common Errors](#common-errors)
+1. [Installation](#-installation)
+2. [Authorization](#-authorization)
+3. [SDK Methods](#-sdk-methods)
+4. [Examples of Usage](#-examples-of-usage)
+5. [Common Errors](#-common-errors)
 
 ## 💾 Installation
 
