@@ -1,6 +1,6 @@
 {
   "name": "when-lambo",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "change",
   "type": "module",
   "source": "src/index.ts",
