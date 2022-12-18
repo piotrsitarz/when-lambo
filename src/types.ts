@@ -40,13 +40,18 @@ interface WalletsForPersona {
   walletsForPersona: PersonaWallet[];
 }
 
-type ResponseErrorTitle = 'Unauthorized' | 'Too Many Requests';
-type ResponseErrorStatus = 401 | 429;
+type ResponseErrorTitle =
+  | 'Unauthorized'
+  | 'Too Many Requests'
+  | 'Unprocessable Entity'
+  | 'Internal Server Error';
+type ResponseErrorStatus = 401 | 422 | 429 | 500;
 
 interface ResponseError {
   type: string;
   title: ResponseErrorTitle;
   status: ResponseErrorStatus;
+  description?: string;
 }
 
 export type {
@@ -55,6 +60,8 @@ export type {
   PersonaAnalysisStatus,
   WalletsForPersona,
   ResponseError,
+  ResponseErrorTitle,
+  ResponseErrorStatus,
 };
 
 export { HttpMethod };

@@ -1,5 +1,25 @@
-import { PersonaAnalysisConfig, RequestInit } from '../types';
+import {
+  PersonaAnalysisConfig,
+  RequestInit,
+  ResponseError as ResponseErrorType,
+  ResponseErrorTitle,
+  ResponseErrorStatus,
+} from '../types';
 import { isWalletAddressValid, areWalletAddressesValid } from '../utils';
+
+export class ResponseError implements ResponseErrorType {
+  type: string;
+  title: ResponseErrorTitle;
+  status: ResponseErrorStatus;
+  description?: string;
+
+  constructor(responseError: ResponseErrorType) {
+    this.type = responseError.type;
+    this.title = responseError.title;
+    this.status = responseError.status;
+    this.description = responseError.description;
+  }
+}
 
 export abstract class Base {
   private apiKey: string;
@@ -10,7 +30,31 @@ export abstract class Base {
     this.baseUrl = config.baseUrl || 'https://api.persona.staging.cookie3.co';
   }
 
-  protected async request<T>(endpoint: string, options: RequestInit): Promise<T> {
+  private handleError(error: Error): ResponseErrorType {
+    try {
+      const { type, title, status, description }: ResponseErrorType = JSON.parse(error.message);
+
+      return new ResponseError({
+        type,
+        title,
+        status,
+        description,
+      });
+    } catch (e) {
+      // If the error message is not a valid JSON string, return a default error object
+      return new ResponseError({
+        type: 'https://httpstatuses.com/500',
+        title: 'Internal Server Error',
+        status: 500,
+        description: 'An internal server error occurred',
+      });
+    }
+  }
+
+  protected async request<T>(
+    endpoint: string,
+    options: RequestInit,
+  ): Promise<T | ResponseErrorType> {
     const url = `${this.baseUrl}${endpoint}`;
     const body = JSON.parse(options.body);
     const walletAddress = body.walletAddress;
@@ -25,16 +69,32 @@ export abstract class Base {
       headers,
     };
 
-    const validateWalletAddresses = Promise.resolve(
-      !!walletAddress ? isWalletAddressValid(walletAddress) : areWalletAddressesValid(body),
-    );
+    const validateWalletAddresses = !!walletAddress
+      ? isWalletAddressValid(walletAddress)
+      : areWalletAddressesValid(body);
 
-    const areValid = await validateWalletAddresses;
-    return areValid
-      ? fetch(url, config)
-          .then((response) => response.text())
-          .then((result) => result as T)
-          .catch((error) => error)
-      : 'incorrect wallet address, please ensure that any wallet address you provide is correct';
+    const areWalletsValid = validateWalletAddresses;
+
+    if (!areWalletsValid) {
+      return new ResponseError({
+        type: 'https://httpstatuses.com/422',
+        title: 'Unprocessable Entity',
+        status: 422,
+        description:
+          'incorrect wallet address, please ensure that any wallet address you provide is correct',
+      });
+    }
+
+    try {
+      const response = await fetch(url, config);
+
+      if (response.status === 401) {
+        throw new Error(JSON.stringify(await response.json()));
+      }
+
+      return response.json() as T;
+    } catch (error: any) {
+      return this.handleError(error);
+    }
   }
 }

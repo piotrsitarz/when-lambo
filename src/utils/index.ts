@@ -1,3 +1,10 @@
+import { ResponseError } from '../base';
+import {
+  ResponseError as ResponseErrorType,
+  PersonaAnalysisStatus,
+  WalletsForPersona,
+} from '../types';
+
 export const isWalletAddressValid = (walletAddress: string) => {
   const regex = new RegExp(/^0x[a-fA-F0-9]{40}$/);
 
@@ -6,3 +13,7 @@ export const isWalletAddressValid = (walletAddress: string) => {
 
 export const areWalletAddressesValid = (walletAddresses: string[]) =>
   !walletAddresses.find((walletAddress) => !isWalletAddressValid(walletAddress));
+
+export const isResponseError = (
+  response: ResponseErrorType | PersonaAnalysisStatus | WalletsForPersona,
+): response is ResponseError => response instanceof ResponseError;

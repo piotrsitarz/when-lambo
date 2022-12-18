@@ -1,3 +1,11 @@
-import PersonaAnalysis from './personaAnalysis';
+import { PersonaAnalysis } from './personaAnalysis';
+import { ResponseError } from './base';
+import { isWalletAddressValid, areWalletAddressesValid, isResponseError } from './utils';
 
-export default PersonaAnalysis;
+export {
+  PersonaAnalysis,
+  ResponseError,
+  isWalletAddressValid,
+  areWalletAddressesValid,
+  isResponseError,
+};
