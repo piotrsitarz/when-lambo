@@ -1,4 +1,4 @@
-import { ResponseError } from '../base';
+import { ResponseError } from '../classes/responseError';
 import {
   ResponseError as ResponseErrorType,
   PersonaAnalysisStatus,

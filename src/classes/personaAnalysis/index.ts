@@ -1,8 +1,8 @@
 import { Base } from '../base';
-import { PersonaAnalysisStatus, HttpMethod, WalletsForPersona, ResponseError } from '../types';
+import { PersonaAnalysisStatus, HttpMethod, WalletsForPersona, ResponseError } from '../../types';
 
 export class PersonaAnalysis extends Base {
-  //Returns information if provided wallet address meet rules for given persona
+  // Returns information if provided wallet address meet rules for given persona
   isPersonaMatched(
     walletAddress: string,
     personaId: string,
@@ -12,7 +12,7 @@ export class PersonaAnalysis extends Base {
       body: JSON.stringify({ walletAddress, personaId }),
     });
   }
-  //Returns wallets that meet the rules in all personas attached to account
+  // Returns wallets that meet the rules in all personas attached to account
   filterMatchedPersonas(walletAddresses: string[]): Promise<WalletsForPersona | ResponseError> {
     return this.request('/personaAnalysis/personaArray', {
       method: HttpMethod.POST,

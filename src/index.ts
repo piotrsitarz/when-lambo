@@ -1,5 +1,5 @@
-import { PersonaAnalysis } from './personaAnalysis';
-import { ResponseError } from './base';
+import { PersonaAnalysis } from './classes/personaAnalysis';
+import { ResponseError } from './classes/responseError';
 import { isWalletAddressValid, areWalletAddressesValid, isResponseError } from './utils';
 
 export {

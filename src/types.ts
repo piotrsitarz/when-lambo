@@ -45,6 +45,7 @@ type ResponseErrorTitle =
   | 'Too Many Requests'
   | 'Unprocessable Entity'
   | 'Internal Server Error';
+
 type ResponseErrorStatus = 401 | 422 | 429 | 500;
 
 interface ResponseError {

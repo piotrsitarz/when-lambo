@@ -2,24 +2,9 @@ import {
   PersonaAnalysisConfig,
   RequestInit,
   ResponseError as ResponseErrorType,
-  ResponseErrorTitle,
-  ResponseErrorStatus,
-} from '../types';
-import { isWalletAddressValid, areWalletAddressesValid } from '../utils';
-
-export class ResponseError implements ResponseErrorType {
-  type: string;
-  title: ResponseErrorTitle;
-  status: ResponseErrorStatus;
-  description?: string;
-
-  constructor(responseError: ResponseErrorType) {
-    this.type = responseError.type;
-    this.title = responseError.title;
-    this.status = responseError.status;
-    this.description = responseError.description;
-  }
-}
+} from '../../types';
+import { ResponseError } from '../responseError';
+import { isWalletAddressValid, areWalletAddressesValid } from '../../utils';
 
 export abstract class Base {
   private apiKey: string;
