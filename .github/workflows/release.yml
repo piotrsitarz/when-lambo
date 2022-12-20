@@ -1,0 +1,25 @@
+name: Publish to NPM
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout  💾
+        uses: actions/checkout@v2
+      - name: Setup Node 💻
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies and build 🔧
+        run: yarn install && yarn build
+      - name: Linter 🧹
+        run: yarn lint
+      - name: Publish package on NPM 📦
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn semantic-release
