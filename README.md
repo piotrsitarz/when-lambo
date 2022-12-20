@@ -1,5 +1,11 @@
 # 🚀 When Lambo SDK
 
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/piotrsitarz/when-lambo/release.yml?branch=main)](https://github.com/piotrsitarz/when-lambo)
+[![npm monthly downloads](https://img.shields.io/npm/dm/when-lambo.svg)](https://www.npmjs.com/package/when-lambo)
+[![NPM](https://img.shields.io/npm/l/when-lambo)](https://www.npmjs.com/package/when-lambo)
+[![current version](https://img.shields.io/npm/v/when-lambo.svg)](https://www.npmjs.com/package/when-lambo)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 Welcome to the When Lambo SDK! This TypeScript SDK provides a simple interface for interacting with the Persona Analysis API. It allows you to easily check if a given wallet address matches a given persona, or to filter a list of wallet addresses based on which addresses match a given persona.
 
 ## 📑 Table of Contents
