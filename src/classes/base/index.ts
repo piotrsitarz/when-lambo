@@ -4,7 +4,8 @@ import {
   ResponseError as ResponseErrorType,
 } from '../../types';
 import { ResponseError } from '../responseError';
-import { isWalletAddressValid, areWalletAddressesValid } from '../../utils';
+import { isWalletAddressValidationPassing } from '../../utils';
+import { errorStatuses } from '../../constants';
 
 export abstract class Base {
   private apiKey: string;
@@ -26,7 +27,7 @@ export abstract class Base {
         description,
       });
     } catch (e) {
-      // If the error message is not a valid JSON string, return a default error object
+      // if the error message is not a valid JSON string, return a default error object
       return new ResponseError({
         type: 'https://httpstatuses.com/500',
         title: 'Internal Server Error',
@@ -54,13 +55,8 @@ export abstract class Base {
       headers,
     };
 
-    const validateWalletAddresses = !!walletAddress
-      ? isWalletAddressValid(walletAddress)
-      : areWalletAddressesValid(body);
-
-    const areWalletsValid = validateWalletAddresses;
-
-    if (!areWalletsValid) {
+    // we check validation of wallets, if any is invalid we return error and do not make a request to API
+    if (!isWalletAddressValidationPassing(walletAddress, body)) {
       return new ResponseError({
         type: 'https://httpstatuses.com/422',
         title: 'Unprocessable Entity',
@@ -73,11 +69,13 @@ export abstract class Base {
     try {
       const response = await fetch(url, config);
 
-      if (response.status === 401) {
+      if (errorStatuses.includes(response.status)) {
         throw new Error(JSON.stringify(await response.json()));
       }
-
-      return response.json() as T;
+      // TODO remove condition when every 2** response will be json - coming soon
+      return response.headers.get('Content-Type') === 'text/plain'
+        ? (response.json() as T)
+        : (response.text() as T);
     } catch (error: any) {
       return this.handleError(error);
     }

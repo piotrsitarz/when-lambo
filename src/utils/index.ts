@@ -17,3 +17,6 @@ export const areWalletAddressesValid = (walletAddresses: string[]) =>
 export const isResponseError = (
   response: ResponseErrorType | PersonaAnalysisStatus | WalletsForPersona,
 ): response is ResponseError => response instanceof ResponseError;
+
+export const isWalletAddressValidationPassing = (walletAddress: string, body: string[]) =>
+  !!walletAddress ? isWalletAddressValid(walletAddress) : areWalletAddressesValid(body);
