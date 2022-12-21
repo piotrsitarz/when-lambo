@@ -1,5 +1,6 @@
 # 🚀 When Lambo SDK
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/piotrsitarz/when-lambo/release.yml?branch=main)](https://github.com/piotrsitarz/when-lambo)
 [![npm monthly downloads](https://img.shields.io/npm/dm/when-lambo.svg)](https://www.npmjs.com/package/when-lambo)
 [![NPM](https://img.shields.io/npm/l/when-lambo)](https://www.npmjs.com/package/when-lambo)
