@@ -17,3 +17,5 @@ export const areWalletAddressesValid = (walletAddresses: string[]) =>
 export const isResponseError = (
   response: ResponseErrorType | PersonaAnalysisStatus | WalletsForPersona,
 ): response is ResponseError => response instanceof ResponseError;
+
+// test changes for release workflow
