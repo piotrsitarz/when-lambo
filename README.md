@@ -114,7 +114,7 @@ const personaId = 'my-persona-id';
   });
 ```
 
-**personaAnalysis** - filter wallets that match the rules in all personas attached to an account
+**filterMatchedPersonas** - filter wallets that match the rules in all personas attached to an account
 
 ```
 const walletAddresses = ['0xabcdef1234567890', '0xfedcba0987654321'];
