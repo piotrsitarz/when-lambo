@@ -7,7 +7,7 @@
 [![current version](https://img.shields.io/npm/v/when-lambo.svg)](https://www.npmjs.com/package/when-lambo)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Welcome to the When Lambo SDK! This TypeScript SDK provides a simple interface for interacting with the Persona Analysis API. It allows you to easily check if a given wallet address matches a given persona, or to filter a list of wallet addresses based on which addresses match a given persona.
+Welcome to the When Lambo SDK! This TypeScript SDK provides a simple interface for interacting with the Segment Analysis API. It allows you to easily check if a given wallet address matches a given segment, or to filter a list of wallet addresses based on which addresses match a given segment.
 
 ## 📑 Table of Contents
 
@@ -34,12 +34,12 @@ yarn add when-lambo
 
 ## 🔑 Authorization
 
-Before you can use the When Lambo SDK, you must obtain an API key from the **link to key generation**. This key should be passed to the PersonaAnalysis class when you create a new instance of the SDK:
+Before you can use the When Lambo SDK, you must obtain an API key from the **link to key generation**. This key should be passed to the SegmentAnalysis class when you create a new instance of the SDK:
 
 ```
-import { PersonaAnalysis } from 'when-lambo';
+import { SegmentAnalysis } from 'when-lambo';
 
-const personaAnalysis = new PersonaAnalysis({
+const segmentAnalysis = new SegmentAnalysis({
  apiKey: 'your-api-key-here',
 });
 ```
@@ -49,30 +49,30 @@ const personaAnalysis = new PersonaAnalysis({
 Here are the methods available in the When Lambo SDK:
 | Method | Arguments | Response | Description |
 | ------------- |:-------------:| ------| ----- |
-| **isPersonaMatched** | `walletAddress: string`, `personaId: string` | `PersonaAnalysisStatus` or `ResponseError` | Returns a value indicating if the provided wallet address matches the rules for the given persona. In case of an error, a `ResponseError` object is returned instead. |
-| **filterMatchedPersonas** | `walletAddresses: string[]` | `WalletsForPersona` or `ResponseError` | Returns an object containing the wallets that match the rules in all personas attached to the account. In case of an error, a `ResponseError` object is returned instead. |
+| **isSegmentMatched** | `walletAddress: string`, `segmentId: string` | `SegmentAnalysisStatus` or `ResponseError` | Returns a value indicating if the provided wallet address matches the rules for the given segment. In case of an error, a `ResponseError` object is returned instead. |
+| **filterMatchedSegments** | `walletAddresses: string[]` | `WalletsForSegment` or `ResponseError` | Returns an object containing the wallets that match the rules in all segments attached to the account. In case of an error, a `ResponseError` object is returned instead. |
 
-Where `PersonaAnalysisStatus` is represented by string from the **value** column:
+Where `SegmentAnalysisStatus` is represented by string from the **value** column:
 | Value | Code | Description |
 | ------------- |------| ----- |
-| `IsMatch` | 1 | wallet matches persona criteria |
-| `IsNotMatch` | 2 | wallet does not match persona criteria |
+| `IsMatch` | 1 | wallet matches segment criteria |
+| `IsNotMatch` | 2 | wallet does not match segment criteria |
 | `InProcessing` | 3 | analysis is under processing |
 | `ProcessingFailed` | 4 | there is a problem that should be solved by the developer, [please contact with us](https://www.youtube.com/watch?v=oavMtUWDBTM&t=25s) |
 | `Unavailable` | 5 | wallet address provided does not exist or is too large to process |
 
-and `WalletsForPersona` is represented by:
+and `WalletsForSegment` is represented by:
 
 ```
-interface WalletsForPersona {
+interface WalletsForSegment {
   userId: string;
-  walletsForPersona: PersonaWallet[];
+  walletsForSegment: SegmentWallet[];
 }
 
-interface PersonaWallet {
-  personaId: string;
-  walletsMatchingPersona: Wallet[];
-  walletsNotMatchingPersona: Wallet[];
+interface SegmentWallet {
+  segmentId: string;
+  walletsMatchingSegment: Wallet[];
+  walletsNotMatchingSegment: Wallet[];
   walletsInProcessing: Wallet[];
 }
 
@@ -91,20 +91,20 @@ Here is an example of how these methods can be used:
 **init**
 
 ```
-import { PersonaAnalysis, isResponseError } from 'when-lambo';
+import { SegmentAnalysis, isResponseError } from 'when-lambo';
 
-  const personaAnalysis = new PersonaAnalysis({
+  const segmentAnalysis = new SegmentAnalysis({
     apiKey: "your-api-key-here",
   });
 ```
 
-**isPersonaMatched** - check if a wallet address meets the rules for a given persona
+**isSegmentMatched** - check if a wallet address meets the rules for a given segment
 
 ```
 const walletAddress = '0x1234567890abcdef';
-const personaId = 'my-persona-id';
+const segmentId = 'my-segment-id';
 
-  personaAnalysis.isPersonaMatched(walletAddress, personaId).then((result) => {
+  segmentAnalysis.isSegmentMatched(walletAddress, segmentId).then((result) => {
     if (isResponseError(result)) {
       // handle error
       console.error(`Error: ${result.title} (${result.status})`);
@@ -114,12 +114,12 @@ const personaId = 'my-persona-id';
   });
 ```
 
-**filterMatchedPersonas** - filter wallets that match the rules in all personas attached to an account
+**filterMatchedSegments** - filter wallets that match the rules in all segments attached to an account
 
 ```
 const walletAddresses = ['0xabcdef1234567890', '0xfedcba0987654321'];
 
-  personaAnalysis.filterMatchedPersonas(walletAddresses).then((result) => {
+  segmentAnalysis.filterMatchedSegments(walletAddresses).then((result) => {
     if (isResponseError(result)) {
       // handle error
       console.error(`Error: ${result.title} (${result.status})`);
@@ -160,7 +160,7 @@ represented by values:
 | Type | Title | Status | Description |
 | ------------- |------| ----- | ----- |
 | https://httpstatuses.com/401 | Unauthorized | 401 | API key is not valid or has expired |
-| https://httpstatuses.com/422 | Unprocessable Entity | 422 | incorrect walletAddress/personaId, please ensure that any walletAddress/personaId you provide is correct |
+| https://httpstatuses.com/422 | Unprocessable Entity | 422 | incorrect walletAddress/segmentId, please ensure that any walletAddress/segmentId you provide is correct |
 | https://httpstatuses.com/429 | Too Many Requests | 429 | API calls quota exceeded |
 | https://httpstatuses.com/500 | Internal Server Error | 500 | an internal server error occurred |
 
@@ -170,6 +170,6 @@ List of helper functions that can be useful when using SDK and are available for
 
 | Method                      | Arguments                                                                         | Return value | Description                                                    |
 | --------------------------- | --------------------------------------------------------------------------------- | ------------ | -------------------------------------------------------------- |
-| **isResponseError**         | `response`: `ResponseErrorType` \| `PersonaAnalysisStatus` \| `WalletsForPersona` | `boolean`    | This function checks if the response type is an error.         |
+| **isResponseError**         | `response`: `ResponseErrorType` \| `SegmentAnalysisStatus` \| `WalletsForSegment` | `boolean`    | This function checks if the response type is an error.         |
 | **isWalletAddressValid**    | `walletAddress`: `string`                                                         | `boolean`    | This function checks if the wallet address is valid.           |
 | **areWalletAddressesValid** | `walletAddress`: `string[]`                                                       | `boolean`    | This function checks if there is any wallet that is not valid. |

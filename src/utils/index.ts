@@ -1,8 +1,8 @@
 import { ResponseError } from '../classes/responseError';
 import {
   ResponseError as ResponseErrorType,
-  PersonaAnalysisStatus,
-  WalletsForPersona,
+  SegmentAnalysisStatus,
+  WalletsForSegment,
 } from '../types';
 
 export const isWalletAddressValid = (walletAddress: string) => {
@@ -15,7 +15,7 @@ export const areWalletAddressesValid = (walletAddresses: string[]) =>
   !walletAddresses.find((walletAddress) => !isWalletAddressValid(walletAddress));
 
 export const isResponseError = (
-  response: ResponseErrorType | PersonaAnalysisStatus | WalletsForPersona,
+  response: ResponseErrorType | SegmentAnalysisStatus | WalletsForSegment,
 ): response is ResponseError => response instanceof ResponseError;
 
 export const isWalletAddressValidationPassing = (walletAddress: string, body: string[]) =>

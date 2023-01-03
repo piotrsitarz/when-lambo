@@ -1,4 +1,4 @@
-interface PersonaAnalysisConfig {
+interface SegmentAnalysisConfig {
   apiKey: string;
   baseUrl?: string;
 }
@@ -12,7 +12,7 @@ enum HttpMethod {
   POST = 'POST',
 }
 
-type PersonaAnalysisStatus =
+type SegmentAnalysisStatus =
   | 'IsMatch'
   | 'IsNotMatch'
   | 'InProcessing'
@@ -27,16 +27,16 @@ interface Wallet {
   status: WalletStatus;
 }
 
-interface PersonaWallet {
-  personaId: string;
-  walletsMatchingPersona: Wallet[];
-  walletsNotMatchingPersona: Wallet[];
+interface SegmentWallet {
+  segmentId: string;
+  walletsMatchingSegment: Wallet[];
+  walletsNotMatchingSegment: Wallet[];
   walletsInProcessing: Wallet[];
 }
 
-interface WalletsForPersona {
+interface WalletsForSegment {
   userId: string | null;
-  walletsForPersona: PersonaWallet[];
+  walletsForSegment: SegmentWallet[];
 }
 
 type ResponseErrorTitle =
@@ -55,10 +55,10 @@ interface ResponseError {
 }
 
 export type {
-  PersonaAnalysisConfig,
+  SegmentAnalysisConfig,
   RequestInit,
-  PersonaAnalysisStatus,
-  WalletsForPersona,
+  SegmentAnalysisStatus,
+  WalletsForSegment,
   ResponseError,
   ResponseErrorTitle,
   ResponseErrorStatus,

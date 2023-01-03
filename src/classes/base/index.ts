@@ -1,5 +1,5 @@
 import {
-  PersonaAnalysisConfig,
+  SegmentAnalysisConfig,
   RequestInit,
   ResponseError as ResponseErrorType,
 } from '../../types';
@@ -11,7 +11,7 @@ export abstract class Base {
   private apiKey: string;
   private baseUrl: string;
 
-  constructor(config: PersonaAnalysisConfig) {
+  constructor(config: SegmentAnalysisConfig) {
     this.apiKey = config.apiKey;
     this.baseUrl = config.baseUrl || 'https://api.persona.staging.cookie3.co';
   }

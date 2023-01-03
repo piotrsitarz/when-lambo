@@ -1,4 +1,4 @@
-import { PersonaAnalysis } from './classes/personaAnalysis';
+import { SegmentAnalysis } from './classes/segmentAnalysis';
 import { isWalletAddressValid, areWalletAddressesValid, isResponseError } from './utils';
 
-export { PersonaAnalysis, isWalletAddressValid, areWalletAddressesValid, isResponseError };
+export { SegmentAnalysis, isWalletAddressValid, areWalletAddressesValid, isResponseError };
