@@ -19,12 +19,9 @@ type SegmentAnalysisStatus =
   | 'ProcessingFailed'
   | 'Unavailable';
 
-// 1 - IsMatch, 2 - IsNotMatch, 3 - InProcessing, 4 - ProcessingFailed, 5 - Unavailable
-type WalletStatus = 1 | 2 | 3 | 4 | 5;
-
-interface Wallet {
-  walletAddress: string;
-  status: WalletStatus;
+interface WalletsForSegment {
+  userId: string | null;
+  walletsForSegment: SegmentWallet[];
 }
 
 interface SegmentWallet {
@@ -34,9 +31,19 @@ interface SegmentWallet {
   walletsInProcessing: Wallet[];
 }
 
-interface WalletsForSegment {
-  userId: string | null;
-  walletsForSegment: SegmentWallet[];
+interface Wallet {
+  walletAddress: string;
+  status: WalletStatus;
+}
+
+// 1 - IsMatch, 2 - IsNotMatch, 3 - InProcessing, 4 - ProcessingFailed, 5 - Unavailable
+type WalletStatus = 1 | 2 | 3 | 4 | 5;
+
+interface ResponseError {
+  type: string;
+  title: ResponseErrorTitle;
+  status: ResponseErrorStatus;
+  description?: string;
 }
 
 type ResponseErrorTitle =
@@ -46,13 +53,6 @@ type ResponseErrorTitle =
   | 'Internal Server Error';
 
 type ResponseErrorStatus = 401 | 422 | 429 | 500;
-
-interface ResponseError {
-  type: string;
-  title: ResponseErrorTitle;
-  status: ResponseErrorStatus;
-  description?: string;
-}
 
 export type {
   SegmentAnalysisConfig,
